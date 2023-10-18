@@ -1,12 +1,50 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from "react-native"
 import CheckBox from 'expo-checkbox'
 
 export default function Form(){
 
+  useEffect(() => {
+    loginUser();
+  }, [])
+
     // Variáveis e métodos para CheckBox
-    const [checadaSuperior, setChecadaSuperior] = React.useState(false);
     const [checadaInferior, setChecadaInferior] = React.useState(false);
+
+    const [loginEmail   , setLoginEmail]    = useState(String);
+    const [loginPassword, setLoginPassword] = useState(String);
+
+    const [emailTrim, setEmailTrim]                     = useState(loginEmail.split(" ").join(""));
+    const [passwordTrim, setPasswordTrim]               = useState(loginPassword.split(" ").join(""));
+
+    const [resultadoConfirmacao, setResultadoConfirmacao] = useState(Boolean);
+
+    const loginUser = async () => {
+      if (checadaInferior == true) {
+
+        if (emailTrim != "" && passwordTrim != passwordTrim) {
+          try {
+            await fetch("http://localhost:8090/user/" + loginEmail + "/" + loginPassword)
+            .then((response) => {
+              if (response.ok) {
+                setResultadoConfirmacao(true);
+              }
+              else {
+                setResultadoConfirmacao(false);
+              }
+            })
+          }
+          catch (error) {
+            console.log(error)
+          }
+        } else {
+          console.log("Algum dado não foi preenchido");
+        }
+
+      } else {
+        console.log("Caixa desmarcada");
+      }
+    }
 
     return (
         <View>
@@ -17,14 +55,26 @@ export default function Form(){
                 <TextInput
                   style={styles.input}
                   placeholder="Insira seu E-mail"
-                  placeholderTextColor="white" />
+                  placeholderTextColor="white" 
+                  value={loginEmail}
+                  onChangeText={(loginEmail) => {
+                    setLoginEmail(loginEmail);
+                    setEmailTrim(loginEmail.split(" ").join(""));
+                  }}
+                  />
 
                 <Text style={styles.texto}>Senha</Text>
 
                 <TextInput
                   style={styles.input}
                   placeholder="Insira sua senha"
-                  placeholderTextColor="white" />
+                  placeholderTextColor="white" 
+                  value={loginPassword}
+                  onChangeText={(loginPassword) => {
+                    setLoginPassword(loginPassword);
+                    setPasswordTrim(loginPassword.split(" ").join(""));
+                  }}
+                  />
 
                 <View style={styles.viewCheckBox}>
                   <CheckBox
@@ -37,7 +87,10 @@ export default function Form(){
                   <Text style={styles.viewCheckBoxTextoInferior}>Manter conectado</Text>
                 </View>
 
-                <TouchableOpacity style={styles.Button}>
+                <TouchableOpacity 
+                style={styles.Button}
+                onPress={() => loginUser()}
+                >
                   <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
                   
