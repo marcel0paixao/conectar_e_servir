@@ -99,11 +99,44 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     registerViewCheckbox: {
-        marginHorizontal: 30,
+        marginHorizontal: 10,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },
+    subTitle: {
+        fontSize: 14,
+        marginTop: 10,
+    },
+    confirmEmailContainer: {
+        paddingVertical: 100,
+        alignContent: 'center',
+        alignSelf: 'center',
+        verticalAlign: 'center',
+        textAlign: 'center',
+        height: 'auto'
+    },
+    confirmationEmailInput: {
+        backgroundColor: 'rgb(34, 34, 34)',
+        borderRadius: 13,
+        paddingLeft: 12,
+        alignSelf: 'center',
+        color: 'white',
+        width: 35,
+        height: 50,
+        marginHorizontal: 7.5
+    },
+    confirmationEmailInputContainer: {
+        marginVertical: 20,
+        display: 'flex',
+        flexDirection: "row",
+        alignItems: "center",
+        alignSelf: 'center'
+    },
+    confirmEmailTextsContainer: {
+        paddingHorizontal: 30,
+        alignItems: 'center',
+    }
 });
 
 export default styles;

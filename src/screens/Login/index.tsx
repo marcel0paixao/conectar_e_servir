@@ -46,13 +46,13 @@ export default function Login() {
           <View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => alert('Entrar!')}
+              onPress={() => navigation.navigate('Home')}
             >
               <Text style={globalStyles.buttonText}>Entrar</Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.forgotPass}>Esqueceu sua senha?</Text>
+          <Text onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPass}>Esqueceu sua senha?</Text>
 
           <View style={styles.separator}></View>
 
