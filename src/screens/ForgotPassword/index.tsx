@@ -40,7 +40,7 @@ export default function ForgotPassword(){
                         <View style={styles.confirmEmailTextsContainer}>
                             <Text style={styles.title}>Confirme o código</Text>
                             <Text style={styles.subTitle}>Enviamos um código de 6 dígitos para o email</Text>
-                            <Text style={{...styles.subTitle, fontWeight: 600}}>{email}</Text>
+                            <Text style={{...styles.subTitle, fontWeight: '600'}}>{email}</Text>
                             <Text style={styles.subTitle}>Por segurança não compartilhe esse código com ninguém. Confirme-o abaixo para poder definir uma nova senha:</Text>
                         </View>
                         <View>

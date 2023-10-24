@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import AppLayout from "../../layouts/AppLayout";
 import { View, Text, TextInput, Button, TouchableOpacity } from "react-native"
 import styles from "../../../assets/styles/form/styles";
@@ -8,6 +8,7 @@ import { StackTypes } from "../../routes/stack.routes";
 
 export default function ConfirmEmail(){
     const navigation = useNavigation<StackTypes>();
+    const [numbers, setNumbers] = useState<Array<number | null>>([null, null, null, null, null, null]);
     
     return (
         <AppLayout>
@@ -18,12 +19,17 @@ export default function ConfirmEmail(){
                 </View>
                 <View>
                     <View style={styles.confirmationEmailInputContainer}>
+                        <TextInput style={styles.confirmationEmailInput} keyboardType="numeric" maxLength={1} onChangeText={text => setNumbers(numbers => numbers.map((number, index) => {
+                            if(text && index == 0) {
+                                number = Number(text);
+                            }
+                            return number;
+                        }))}/>
                         <TextInput style={styles.confirmationEmailInput} maxLength={1} />
-                        <TextInput style={styles.confirmationEmailInput} />
-                        <TextInput style={styles.confirmationEmailInput} />
-                        <TextInput style={styles.confirmationEmailInput} />
-                        <TextInput style={styles.confirmationEmailInput} />
-                        <TextInput style={styles.confirmationEmailInput} />
+                        <TextInput style={styles.confirmationEmailInput} maxLength={1} />
+                        <TextInput style={styles.confirmationEmailInput} maxLength={1} />
+                        <TextInput style={styles.confirmationEmailInput} maxLength={1} />
+                        <TextInput style={styles.confirmationEmailInput} maxLength={1} />
                     </View>
                 </View>
                 <View>

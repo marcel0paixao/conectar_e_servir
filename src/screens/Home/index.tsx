@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity, Button } from "react-native"
 import CheckBox from 'expo-checkbox'
 import styles from "../../../assets/styles/cards/mediumCard";
@@ -9,74 +9,89 @@ import { StackTypes } from "../../routes/stack.routes";
 import { FlatList } from "react-native-gesture-handler";
 
 export default function Home() {
-  const [remember, setRemember] = React.useState(false);
   const navigation = useNavigation<StackTypes>();
-  const helps = [
+  const [helps, setHelps] = useState([
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     },
     {
-      name: 'pessoa 1',
+      name: 'Ana da Silva',
+      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
       distancia: '0.6km',
       status: 'active',
       photo: 'url foto'
     }
-
-  ]
+  ])
 
   return (
     <AppLayout>
-      <FlatList style={styles.cardListContainer} data={helps} renderItem={item => 
+      <FlatList style={styles.cardListContainer} data={helps} renderItem={(item) => 
         <View style={styles.cardContainer}>
           <View style={styles.cardInfo}>
-            <Image source={require('../../../assets/images/google.png')} width={60} height={60} />
-            <Text>{item.item.name}</Text>
+            <Image style={styles.cardImage} source={require('../../../assets/images/person.webp')} />
+            <View style={styles.cardText}>
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={styles.cardTitle}>{item.item.name}</Text>
+                <Text style={styles.cardDistance}>{item.item.distancia}</Text>
+              </View>
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={styles.cardDescription}>{item.item.description}</Text>
+                <Text style={styles.time}>Há 1 min</Text>
+              </View>
+            </View>
           </View>
           <View style={styles.cardActions}>
-            <TouchableOpacity style={{...styles.actionButton, ...styles.declineButton}}>
-              <Text>Recusar</Text>
+            <TouchableOpacity style={{...styles.actionButton, ...styles.declineButton}} onPress={() => setHelps(helps.filter(help => help !== item.item))}>
+              <Text style={{color: '#c33'}}>Recusar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.actionButton, ...styles.acceptButton}}>
-              <Text>Aceitar</Text>
+              <Text style={{color: 'green'}}>Aceitar</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -14,7 +14,7 @@ export default function DefinePassword(){
 
     return (
         <AppLayout>
-          {passwordChanged ?
+          {!passwordChanged ?
             <View style={{marginVertical: 100}}>
               <View>
                 <Text style={styles.title}>Definir nova senha</Text>
@@ -41,7 +41,7 @@ export default function DefinePassword(){
                   placeholderTextColor={'white'} />
               </View>
 
-              <TouchableOpacity style={{ ...styles.button, marginTop: 40 }} onPress={() => navigation.navigate('Login')}>
+              <TouchableOpacity style={{ ...styles.button, marginTop: 40 }} onPress={() => setPasswordChanged(true)}>
                 <Text style={globalStyles.buttonText}>Confirmar</Text>
               </TouchableOpacity>
             </View> :

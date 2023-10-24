@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
         borderColor: '#aaa'
     },
     cardInfo: {
-        padding: 20
+        padding: 13,
+        display: 'flex',
+        flexDirection: 'row'
     },
     cardActions: {
         width: '100%',
@@ -43,6 +45,35 @@ const styles = StyleSheet.create({
         color: 'red',
         borderRightWidth: 0.5,
         borderRightColor: '#aaa',
+    },
+    cardImage: {
+        width: 60, 
+        height: 60, 
+        borderRadius: 100
+    },
+    cardTitle: {
+        fontWeight: "600",
+        textTransform: "capitalize",
+        fontSize: 18
+    },
+    cardDescription: {
+        fontSize: 12,
+        maxWidth: 200
+    },
+    cardText: {
+        marginLeft: 10
+    },
+    time: {
+        marginTop: 34, 
+        marginLeft: -2, 
+        color: 'rgb(50, 50, 50)', 
+        fontSize: 11
+    },
+    cardDistance: {
+        marginTop: 3,
+        marginLeft: 'auto',
+        fontWeight: '300',
+        fontSize: 12
     }
 });
 

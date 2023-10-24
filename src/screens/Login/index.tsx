@@ -35,12 +35,12 @@ export default function Login() {
 
           <View style={styles.viewCheckBox}>
             <CheckBox
-              style={styles.checkboxInput}
+              style={styles.checkboxInputLogin}
               disabled={false}
               value={remember}
               onValueChange={() => setRemember(!remember)}
             />
-            <Text style={styles.checkboxLabel}>Manter conectado</Text>
+            <Text style={{...styles.checkboxLabel, marginTop: -15}}>Manter conectado</Text>
           </View>
 
           <View>

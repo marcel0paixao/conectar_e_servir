@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 20
     },
+    checkboxInputLogin: {
+        marginRight: 10,
+        marginBottom: 0,
+    },
     separator: {
         width: '80%',
         height: 1,
