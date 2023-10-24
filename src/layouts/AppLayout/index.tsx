@@ -4,12 +4,17 @@ import styles from "../../../assets/styles/layouts/appStyles";
 import Footer from "./Footer";
 import Header from "./Header";
 
-export default function AppLayout({children}: PropsWithChildren) {
+interface Props {
+    footer: boolean,
+    children: React.ReactNode
+}
+
+export default function AppLayout({children, footer = true}: Props) {
     return (
         <View style={styles.container}>
             <Header />
             {children}
-            <Footer />
+            {footer && <Footer />}
         </View>
     )
 }

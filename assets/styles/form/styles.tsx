@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingLeft: 15,
         alignSelf: 'center',
-        color: 'white'
+        color: 'white',
     },
     viewCheckBox: {
         display: "flex",

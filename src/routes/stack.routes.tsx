@@ -6,6 +6,7 @@ import ConfirmEmail from "../screens/ConfirmEmail";
 import ForgotPassword from "../screens/ForgotPassword";
 import DefinePassword from "../screens/DefinePassword";
 import Home from "../screens/Home";
+import Chat from "../screens/Chat";
 const Stack = createNativeStackNavigator();
 
 type StackNavigation = {
@@ -25,6 +26,7 @@ export default function StackComponent() {
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="DefinePassword" component={DefinePassword} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Chat" component={Chat} initialParams={{ id: 42 }} />
         </Stack.Navigator>
     )
 }

@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity, Button } from "react-native"
-import CheckBox from 'expo-checkbox'
 import styles from "../../../assets/styles/cards/mediumCard";
-import globalStyles from "../../../assets/styles/globalStyles";
 import AppLayout from "../../layouts/AppLayout";
 import { useNavigation } from "expo-router";
 import { StackTypes } from "../../routes/stack.routes";
@@ -90,7 +88,7 @@ export default function Home() {
             <TouchableOpacity style={{...styles.actionButton, ...styles.declineButton}} onPress={() => setHelps(helps.filter(help => help !== item.item))}>
               <Text style={{color: '#c33'}}>Recusar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.actionButton, ...styles.acceptButton}}>
+            <TouchableOpacity style={{...styles.actionButton, ...styles.acceptButton}} onPress={() => navigation.navigate('Chat')}>
               <Text style={{color: 'green'}}>Aceitar</Text>
             </TouchableOpacity>
           </View>
