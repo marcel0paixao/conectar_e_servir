@@ -115,7 +115,3 @@ export default function Chat({}: PropsWithChildren) {
   );
 }
 
-function newRef() {
-    throw new Error("Function not implemented.");
-}
-
