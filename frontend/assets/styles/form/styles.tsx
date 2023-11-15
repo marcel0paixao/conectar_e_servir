@@ -140,6 +140,10 @@ const styles = StyleSheet.create({
     confirmEmailTextsContainer: {
         paddingHorizontal: 30,
         alignItems: 'center',
+    },
+    errorMsg: {
+        color: 'red',
+        textAlign: 'center'
     }
 });
 
