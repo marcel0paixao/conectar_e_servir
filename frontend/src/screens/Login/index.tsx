@@ -16,10 +16,12 @@ export default function Login() {
 
   const login = async () => {
     try {
-      await fetch("http://localhost:8090/user/" + email + "/" + password)
+      await fetch("http://localhost:8000/user/" + email + "/" + password)
       .then((response) => {
         if (response.ok) navigation.navigate('Home');
-        else setLoginError('Credenciais inválidas!');
+        else {
+          setLoginError('Credenciais inválidas!');
+        }
       })
     }
     catch (error) {
