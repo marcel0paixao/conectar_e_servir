@@ -74,6 +74,15 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         fontWeight: '300',
         fontSize: 12
+    },
+    callButon: {
+        backgroundColor: 'rgb(34, 34, 34)',
+        width: 70,
+        height: 70,
+        borderRadius: 100,
+        position: 'absolute',
+        top: '84%',
+        right: '2%'
     }
 });
 

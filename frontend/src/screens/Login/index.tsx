@@ -16,13 +16,22 @@ export default function Login() {
 
   const login = async () => {
     try {
-      await fetch("http://localhost:8000/user/" + email + "/" + password)
-      .then((response) => {
-        if (response.ok) navigation.navigate('Home');
-        else {
-          setLoginError('Credenciais inválidas!');
-        }
-      })
+      console.log(email, password);
+      
+      await fetch("http://localhost:8000/user/" + email + "/" + password, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          if (response.ok) navigation.navigate('Home');
+          else {
+            console.log(response.url, response.status);
+            setLoginError('Credenciais inválidas!');
+            navigation.navigate('Home');
+          }
+        }).catch(e => console.log(e))
     }
     catch (error) {
       setLoginError('Não foi possível fazer login, verifique sua conexão.');
@@ -43,12 +52,14 @@ export default function Login() {
               placeholder="Insira seu E-mail"
               value={email}
               onChangeText={setEmail}
+              autoCapitalize="none"
               placeholderTextColor={'white'} />
           </View>
           <View>
             <Text style={styles.inputLabel}>Senha</Text>
             <TextInput
               style={styles.input}
+              secureTextEntry={true}
               placeholder="Insira sua senha"
               value={password}
               onChangeText={setPassword}

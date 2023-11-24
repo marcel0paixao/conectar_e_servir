@@ -206,6 +206,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
+    }, 
+    textarea: {
+        width: '90%',
+        height: 250,
+        backgroundColor: 'rgb(34, 34, 34)',
+        borderRadius: 15,
+        paddingLeft: 15,
+        alignSelf: 'center',
+        color: 'white',
     }
 });
 

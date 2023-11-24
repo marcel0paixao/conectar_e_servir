@@ -97,15 +97,15 @@ export default function SingUp(){
                       email: values.email,
                       password: values.password,
                       bornDate: date,
-                      cpf: values.taxID
+                      cpf: values.taxID.replace(/[.-]/g, '')
                     })
                   })
                   .then((response) => {
+                    values.taxID = formatCPF(values.taxID);
                     if (response.ok) navigation.navigate('ConfirmEmail');
-                    else {
-                      console.log(response.url);
-                      setSignupError('Dados inválidos!');
-                    }
+                    else setSignupError('Dados inválidos!');
+                  }).catch(e => {
+                    console.log('error: ', e)
                   })
                 }
                 catch (error) {
@@ -136,6 +136,7 @@ export default function SingUp(){
                   <Text style={styles.inputLabel}>E-mail</Text>
                   <TextInput
                     style={styles.input}
+                    autoCapitalize="none"
                     placeholder="Insira seu E-mail"
                     placeholderTextColor={'white'}
                     value={values.email}
