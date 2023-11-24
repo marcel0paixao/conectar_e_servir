@@ -71,6 +71,19 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: 10,
     },
+    closeButton: {
+        backgroundColor: 'rgb(34, 34, 34)',
+        paddingTop: 5,
+        paddingBottom: 5,
+        borderRadius: 15,
+        alignSelf: 'center',
+        width: 30,
+        height: 30,
+        textAlign: 'center',
+        marginTop: 10,
+        position: 'absolute',
+        right: '110%'
+    },
     loginOptions: {
         marginTop: 15,
     },
@@ -140,6 +153,68 @@ const styles = StyleSheet.create({
     confirmEmailTextsContainer: {
         paddingHorizontal: 30,
         alignItems: 'center',
+    },
+    errorMsg: {
+        color: 'red',
+        textAlign: 'center'
+    },
+    dateInput: {
+        marginRight: 'auto',
+        marginLeft: 10,
+        marginTop: 5
+    },
+    DataPickerContainer: {
+        flex: 1,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor : '#A8E9CA'
+    },
+    DataPickerContainerTitle: {
+        textAlign: 'left',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    datePickerStyle: {
+        width: 230,
+    },
+    DataPickerContainerText: {
+        textAlign: 'left',
+        width: 230,
+        fontSize: 16,
+        color : "#000"
+    },
+    centeredView: {
+        height: 'auto',
+        backgroundColor: 'rgba(34, 34, 34, 0.5)',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        width: '90%',
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    }, 
+    textarea: {
+        width: '90%',
+        height: 250,
+        backgroundColor: 'rgb(34, 34, 34)',
+        borderRadius: 15,
+        paddingLeft: 15,
+        alignSelf: 'center',
+        color: 'white',
     }
 });
 

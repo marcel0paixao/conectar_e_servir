@@ -94,6 +94,9 @@ export default function Home() {
           </View>
         </View>
       } />
+      <TouchableOpacity style={styles.callButon} onPress={() => navigation.navigate('CreateCall')}>
+        <Text style={{color: 'white', textAlign: 'center', fontSize: 40, marginTop: 8}}>+</Text>
+      </TouchableOpacity>
     </AppLayout>
   );
 }

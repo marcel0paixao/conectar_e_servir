@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native"
 import CheckBox from 'expo-checkbox'
 import styles from "../../../assets/styles/form/styles";
@@ -8,11 +8,38 @@ import { useNavigation } from "expo-router";
 import { StackTypes } from "../../routes/stack.routes";
 
 export default function Login() {
-  const [remember, setRemember] = React.useState(false);
+  const [remember, setRemember] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loginError, setLoginError] = useState<string | null>(null);
   const navigation = useNavigation<StackTypes>();
 
+  const login = async () => {
+    try {
+      console.log(email, password);
+      
+      await fetch("http://localhost:8000/user/" + email + "/" + password, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          if (response.ok) navigation.navigate('Home');
+          else {
+            console.log(response.url, response.status);
+            setLoginError('Credenciais inválidas!');
+            navigation.navigate('Home');
+          }
+        }).catch(e => console.log(e))
+    }
+    catch (error) {
+      setLoginError('Não foi possível fazer login, verifique sua conexão.');
+    }
+  }
+
   return (
-    <AppLayout>
+    <AppLayout footer>
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Entrar</Text>
@@ -23,13 +50,19 @@ export default function Login() {
             <TextInput
               style={styles.input}
               placeholder="Insira seu E-mail"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
               placeholderTextColor={'white'} />
           </View>
           <View>
             <Text style={styles.inputLabel}>Senha</Text>
             <TextInput
               style={styles.input}
+              secureTextEntry={true}
               placeholder="Insira sua senha"
+              value={password}
+              onChangeText={setPassword}
               placeholderTextColor={'white'} />
           </View>
 
@@ -43,10 +76,12 @@ export default function Login() {
             <Text style={{...styles.checkboxLabel, marginTop: -15}}>Manter conectado</Text>
           </View>
 
+          {loginError && <Text style={styles.errorMsg}>{loginError}</Text>}
+
           <View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Home')}
+              onPress={() => login()}
             >
               <Text style={globalStyles.buttonText}>Entrar</Text>
             </TouchableOpacity>
