@@ -31,5 +31,4 @@ public class CallController {
     Calls encontrarPrimeiraChamadaPeloUsuario(Users callerUserId) {
         return callRepository.findTopByCallerUserOrderByDate(callerUserId);
     }
-
 }
