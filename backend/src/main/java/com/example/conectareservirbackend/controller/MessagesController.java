@@ -3,10 +3,9 @@ package com.example.conectareservirbackend.controller;
 import com.example.conectareservirbackend.model.Messages;
 import com.example.conectareservirbackend.repository.MessagesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
@@ -16,9 +15,14 @@ public class MessagesController {
 
     private MessagesRepository messagesRepository;
 
-    @PostMapping("/chat")
-    Messages salvarChamada(@RequestBody Messages newMessages) {
+    @PostMapping("/messages")
+    Messages salvarMensagem(@RequestBody Messages newMessages) {
         return messagesRepository.save(newMessages);
+    }
+
+    @GetMapping("/findMessages/{chatId}")
+    List<Messages> encontrarMensagens(@PathVariable Long chatId) {
+        return messagesRepository.findAllByChatIdOrderById(chatId);
     }
 
 }

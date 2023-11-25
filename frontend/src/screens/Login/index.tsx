@@ -16,8 +16,6 @@ export default function Login() {
 
   const login = async () => {
     try {
-      console.log(email, password);
-      
       await fetch("http://localhost:8000/user/" + email + "/" + password, {
           method: 'GET',
           headers: {
@@ -26,11 +24,7 @@ export default function Login() {
         })
         .then((response) => {
           if (response.ok) navigation.navigate('Home');
-          else {
-            console.log(response.url, response.status);
-            setLoginError('Credenciais inválidas!');
-            navigation.navigate('Home');
-          }
+          else setLoginError('Credenciais inválidas!');
         }).catch(e => console.log(e))
     }
     catch (error) {

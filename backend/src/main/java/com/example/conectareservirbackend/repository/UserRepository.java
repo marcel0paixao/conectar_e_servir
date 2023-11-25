@@ -14,13 +14,36 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     Users findByUsernameAndPassword(String username, String password);
 
+    Users findByEmailAndAndPassword(String email, String password);
+
     Users findByEmail(String email);
 
     String queryUpdatePassword = "UPDATE Users SET password = :newPassword WHERE email = :userEmail";
-
     @Modifying
     @Transactional
     @Query(queryUpdatePassword)
     Integer atualizarSenhaDoUsuarioPorEmail(@Param("newPassword") String newPassword, @Param("userEmail") String userEmail);
+
+    String queryUpdateForgetNumber = "UPDATE Users SET forgetPasswordNumber = :newForgetNumber WHERE email = :userEmail";
+    @Modifying
+    @Transactional
+    @Query(queryUpdateForgetNumber)
+    Integer atualizarNumeroEsquecimentoDoUsuarioPorEmail(@Param("newForgetNumber") String newForgetNumber, @Param("userEmail") String userEmail);
+
+    String queryUpdateSignupCode = "UPDATE Users SET signupCode = :signupCode WHERE email = :userEmail";
+    @Modifying
+    @Transactional
+    @Query(queryUpdateSignupCode)
+    Integer atualizarCodigoDeSignupPorEmail(@Param("signupCode") String signupCode, @Param("userEmail") String userEmail);
+
+    /*
+    String queryFindSignupCode = "SELECT signupCode FROM Users WHERE email = :userEmail";
+    @Query(queryUpdateSignupCode)
+    String encontrarCodigoDeSignupPorEmail(@Param("userEmail") String userEmail);
+
+    String queryFindVerifiedAt = "SELECT verifiedAt FROM Users WHERE email = :userEmail";
+    @Query(queryFindVerifiedAt)
+    String encontrarDataDeverificacaoPorEmail(@Param("userEmail") String userEmail);
+     */
 
 }

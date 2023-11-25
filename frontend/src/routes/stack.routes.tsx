@@ -8,6 +8,7 @@ import DefinePassword from "../screens/DefinePassword";
 import Home from "../screens/Home";
 import Chat from "../screens/Chat";
 import CreateCall from "../screens/CreateCall";
+import CallDashboard from "../screens/CallDashboard";
 const Stack = createNativeStackNavigator();
 
 type StackNavigation = {
@@ -29,6 +30,7 @@ export default function StackComponent() {
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Chat" component={Chat} initialParams={{ id: 42 }} />
             <Stack.Screen name="CreateCall" component={CreateCall} />
+            <Stack.Screen name="CallDashboard" component={CallDashboard} />
         </Stack.Navigator>
     )
 }

@@ -12,7 +12,11 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long chat;
+    private Long chatId;
+
+    private String text;
+
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -23,10 +27,26 @@ public class Messages {
     }
 
     public Long getChat() {
-        return chat;
+        return chatId;
     }
 
     public void setChat(Long chat) {
-        this.chat = chat;
+        this.chatId = chat;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

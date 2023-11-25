@@ -3,10 +3,7 @@ package com.example.conectareservirbackend.controller;
 import com.example.conectareservirbackend.model.Chat;
 import com.example.conectareservirbackend.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("http://localhost:8081")
@@ -15,6 +12,11 @@ public class ChatController {
     @Autowired
 
     private ChatRepository chatRepository;
+
+    @GetMapping("/findChat/{callerUserId}/{calledUserId}")
+    Chat encontrarChamada(Long callerUserId, Long calledUserId) {
+        return chatRepository.findTopByCallerUserAndAndCalledUser(callerUserId, calledUserId);
+    }
 
     @PostMapping("/chat")
     Chat salvarChamada(@RequestBody Chat newChat) {

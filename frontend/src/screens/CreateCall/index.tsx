@@ -11,20 +11,7 @@ import * as yup from 'yup';
 
 export default function CreateCall(){
     const [submitErrors, setSubmitErrors] = useState('');
-    const [dateErrors, setDateErrors] = useState<string | null>(null);
     const navigation = useNavigation<StackTypes>();
-    const past18years = new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate());
-
-    const formatCPF = (value: string) => {
-      const numericValue = value.replace(/\D/g, '');
-    
-      let formattedValue = numericValue.replace(
-        /^(\d{3})(\d{3})(\d{3})(\d{2}).*/,
-        '$1.$2.$3-$4'
-      );
-    
-      return formattedValue;
-    };
 
     interface MyFormValues {
         description: string;
@@ -56,11 +43,18 @@ export default function CreateCall(){
                     },
                     body: JSON.stringify({
                         description: values.description,
+                        callerUser: 42,
+                        status: 'created',
+                        date: new Date()
                     })
                   })
                   .then((response) => {
-                    if (response.ok) navigation.navigate('ConfirmEmail');
-                    else setSubmitErrors('Dados inválidos!');
+                    if (response.ok) navigation.navigate('CallDashboard');
+                    else {
+                      setSubmitErrors('Dados inválidos!');
+                      console.log(response.status);
+                      
+                    }
                   }).catch(e => {
                     console.log('error: ', e)
                   })
@@ -88,6 +82,8 @@ export default function CreateCall(){
                     placeholderTextColor={'white'}
                     value={values.description}
                     onBlur={handleBlur('description')}
+                    multiline={true}
+                    numberOfLines={6}
                     onChangeText={handleChange('description')} />
                 </View>
                 {errors.description && <Text style={{ marginLeft: 25, marginTop: 2, color: 'red', marginBottom: 10 }}>{errors.description}</Text>}
@@ -95,7 +91,7 @@ export default function CreateCall(){
                 {submitErrors && <Text style={{ marginLeft: 25, marginTop: 2, color: 'red', marginBottom: 10 }}>{submitErrors}</Text>}
 
                 <TouchableOpacity style={{ ...styles.button, marginVertical: 20 }} onPress={handleSubmit}>
-                  <Text style={globalStyles.buttonText}>Cadastrar-se</Text>
+                  <Text style={globalStyles.buttonText}>Criar solicitação ajuda</Text>
                 </TouchableOpacity>
               </ScrollView>
             )}

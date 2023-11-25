@@ -87,6 +87,8 @@ export default function SingUp(){
             validateOnMount={false}
             onSubmit={async (values: MyFormValues) => {
                 try {
+                  console.log(date);
+                  
                   await fetch("http://localhost:8000/user", {
                     method: 'POST',
                     headers: {
@@ -103,7 +105,10 @@ export default function SingUp(){
                   .then((response) => {
                     values.taxID = formatCPF(values.taxID);
                     if (response.ok) navigation.navigate('ConfirmEmail');
-                    else setSignupError('Dados inválidos!');
+                    else {
+                      setSignupError('Dados inválidos!');
+                      console.log(response.status);
+                    }
                   }).catch(e => {
                     console.log('error: ', e)
                   })

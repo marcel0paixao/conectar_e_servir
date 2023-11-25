@@ -18,11 +18,17 @@ public class Users {
     private String password;
     @Column(nullable = true, length = 100)
     private Long forgetPasswordNumber;
+    @Column(nullable = true, length = 100)
+    private Long signupCode;
     @Column(nullable = false, unique = true, length = 14)
     private Long cpf;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date bornDate;
+    @Column(nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Date verifiedAt;
+
 
     public Long getId() {
         return id;
@@ -48,6 +54,14 @@ public class Users {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Long getForgertPasswordNumber() {
         return forgetPasswordNumber;
     }
@@ -56,12 +70,12 @@ public class Users {
         this.forgetPasswordNumber = forgertPasswordNumber;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getSignupCode() {
+        return signupCode;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSignupCode(Long singupCode) {
+        this.signupCode = singupCode;
     }
 
     public Long getCpf() {
@@ -78,5 +92,13 @@ public class Users {
 
     public void setBornDate(Date bornDate) {
         this.bornDate = bornDate;
+    }
+
+    public Date getVerifiedAt() {
+        return verifiedAt;
+    }
+
+    public void setVerifiedAt(Date verifiedAt) {
+        this.verifiedAt = verifiedAt;
     }
 }

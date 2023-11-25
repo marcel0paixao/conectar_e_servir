@@ -19,6 +19,7 @@ public class Calls {
     private Long calledUser;
     @Column(nullable = false)
     private String Status;
+    private String description;
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -53,6 +54,14 @@ public class Calls {
 
     public void setStatus(String status) {
         Status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDate() {
