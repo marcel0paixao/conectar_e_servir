@@ -1,8 +1,12 @@
-//import { NavigationContainer } from "@react-navigation/native";
+import React, { useContext } from "react";
 import StackComponent from "./stack.routes";
+import AuthContext from "../../contexts/auth";
+import AppRoutes from "./app.routes";
+import AuthRoutes from "./auth.routes";
 
-export default function Routes() {
-    return (
-        <StackComponent />
-    )
+const Routes: React.FC = () => {
+    const { logged } = useContext(AuthContext);
+    return logged ? <AppRoutes /> : <AuthRoutes />
 }
+
+export default Routes;

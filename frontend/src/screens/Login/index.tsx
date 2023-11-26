@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native"
 import CheckBox from 'expo-checkbox'
 import styles from "../../../assets/styles/form/styles";
@@ -6,6 +6,7 @@ import globalStyles from "../../../assets/styles/globalStyles";
 import AppLayout from "../../layouts/AppLayout";
 import { useNavigation } from "expo-router";
 import { StackTypes } from "../../routes/stack.routes";
+import AuthContext from "../../../contexts/auth";
 
 export default function Login() {
   const [remember, setRemember] = useState<boolean>(false);
@@ -13,25 +14,8 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
   const [loginError, setLoginError] = useState<string | null>(null);
   const navigation = useNavigation<StackTypes>();
-
-  const login = async () => {
-    try {
-      await fetch("http://localhost:8000/user/" + email + "/" + password, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .then((response) => {
-          if (response.ok) navigation.navigate('Home');
-          else setLoginError('Credenciais inválidas!');
-        }).catch(e => console.log(e))
-    }
-    catch (error) {
-      setLoginError('Não foi possível fazer login, verifique sua conexão.');
-    }
-  }
-
+  const { handleLogin } = useContext(AuthContext);
+  
   return (
     <AppLayout footer>
       <View style={styles.container}>
@@ -75,17 +59,17 @@ export default function Login() {
           <View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => login()}
+              onPress={() => handleLogin(email, password, setLoginError)}
             >
               <Text style={globalStyles.buttonText}>Entrar</Text>
             </TouchableOpacity>
           </View>
 
-          <Text onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPass}>Esqueceu sua senha?</Text>
+          {/* <Text onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPass}>Esqueceu sua senha?</Text> */}
 
           <View style={styles.separator}></View>
 
-          <View style={styles.loginOptions}>
+          {/* <View style={styles.loginOptions}>
             <Text style={styles.loginOptionsLabel}>Entre com redes sociais</Text>
 
             <View style={styles.loginOptionsButtons}>
@@ -98,7 +82,7 @@ export default function Login() {
                 <Image source={require('../../../assets/images/facebook.png')} />
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
           <Text onPress={() => navigation.navigate('Signup')} style={styles.loginOptionsLabel}>Não possui conta? <Text style={{ color: 'black', fontWeight: '600' }}>Cadastre-se</Text></Text>
         </View>
       </View>

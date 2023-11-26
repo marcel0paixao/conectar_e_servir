@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     cardListContainer: {
         width: '100%',
-        padding: 30
+        padding: 10
     },
     cardContainer: {
         width: '100%',
@@ -83,6 +83,20 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '84%',
         right: '2%'
+    },
+    logOutButton: {
+        backgroundColor: 'rgb(34, 34, 34)',
+        width: 40,
+        height: 40,
+        marginHorizontal: 20,
+        borderRadius: 10
+    },
+    logOutButtonText: {
+        color: 'white',
+        textAlign: 'center',
+        marginTop: 10
+    },
+    logOutTitle: {
     }
 });
 

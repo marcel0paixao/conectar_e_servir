@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from "react-native"
 import styles from "../../../assets/styles/form/styles";
 import globalStyles from "../../../assets/styles/globalStyles";
@@ -8,6 +8,7 @@ import { StackTypes } from "../../routes/stack.routes";
 import { ScrollView } from "react-native-gesture-handler";
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import AuthContext from "../../../contexts/auth";
 
 export default function CreateCall(){
     const [submitErrors, setSubmitErrors] = useState('');
@@ -24,7 +25,8 @@ export default function CreateCall(){
             .max(1000, 'A descrição deve ter no máximo 1000 caracteres'),
     });
 
-    const initialValues: MyFormValues = { description: ''}
+    const initialValues: MyFormValues = { description: '' }
+    const { user } = useContext(AuthContext);
 
     return (
         <AppLayout footer>
@@ -36,25 +38,21 @@ export default function CreateCall(){
             validateOnMount={false}
             onSubmit={async (values: MyFormValues) => {
                 try {
-                  await fetch("http://localhost:8000/call", {
+                  await fetch("http://localhost:8090/call", {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         description: values.description,
-                        callerUser: 42,
+                        callerUser: user?.id,
                         status: 'created',
                         date: new Date()
                     })
                   })
                   .then((response) => {
                     if (response.ok) navigation.navigate('CallDashboard');
-                    else {
-                      setSubmitErrors('Dados inválidos!');
-                      console.log(response.status);
-                      
-                    }
+                    else setSubmitErrors('Dados inválidos!');
                   }).catch(e => {
                     console.log('error: ', e)
                   })

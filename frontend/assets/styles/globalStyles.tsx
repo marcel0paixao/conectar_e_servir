@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
       marginLeft: 30,
       marginRight: 30,
       width: 300,
-      marginTop: '100%'
     },
     buttonText: {
       color: 'white',
