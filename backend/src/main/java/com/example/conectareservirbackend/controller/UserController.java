@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("http://localhost:8090")
 public class UserController {
 
     @Autowired

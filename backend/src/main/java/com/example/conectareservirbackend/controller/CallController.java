@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("http://localhost:8090")
 public class CallController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class CallController {
         return callRepository.save(callToUpdate);
     }
 
-    @GetMapping("/getLastUserCall/{callerUserId}/")
+    @GetMapping("/getLastUserCall/{callerUserId}")
     Calls encontrarPrimeiraChamadaPeloUsuario(Users callerUserId) {
         return callRepository.findTopByCallerUserOrderByDate(callerUserId);
     }

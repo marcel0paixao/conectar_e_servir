@@ -1,12 +1,15 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity, Button } from "react-native"
 import styles from "../../../assets/styles/cards/mediumCard";
 import AppLayout from "../../layouts/AppLayout";
 import { useNavigation } from "expo-router";
 import { StackTypes } from "../../routes/stack.routes";
 import { FlatList } from "react-native-gesture-handler";
+import AuthContext from "../../../contexts/auth";
+import globalStyles from "../../../assets/styles/globalStyles";
 
 export default function Home() {
+  const { logout } = useContext(AuthContext);
   const navigation = useNavigation<StackTypes>();
   const [helps, setHelps] = useState([
     {
@@ -69,6 +72,15 @@ export default function Home() {
 
   return (
     <AppLayout>
+      <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: 'center', paddingVertical: 10}}>
+        <Text style={styles.logOutTitle}>Quer entrar com uma conta diferente?</Text>
+        <TouchableOpacity
+          style={styles.logOutButton}
+          onPress={() => logout()}
+        >
+          <Text style={styles.logOutButtonText}>Sair</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList style={styles.cardListContainer} data={helps} renderItem={(item) => 
         <View style={styles.cardContainer}>
           <View style={styles.cardInfo}>

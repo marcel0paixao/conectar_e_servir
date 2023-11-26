@@ -1,50 +1,69 @@
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import { View, Text, Image, TouchableOpacity } from "react-native"
 import styles from "../../../assets/styles/form/styles";
 import globalStyles from "../../../assets/styles/globalStyles";
 import cardStyles from "../../../assets/styles/cards/mediumCard";
 import AppLayout from "../../layouts/AppLayout";
 import { useNavigation } from "expo-router";
+import { StackTypes } from "../../routes/stack.routes";
+import AuthContext from "../../../contexts/auth";
 import axios from "axios";
 
 export default function CallDashboard(){
     const navigation = useNavigation<StackTypes>();
 
+    const { user } = useContext(AuthContext);
+
+    const [call, setCall] = useState<{
+        id: number;
+        status: string;
+        description: string;
+        date: string;
+        callerId: number;
+        calledId: number;
+    }>();
+
+    useEffect(() => {
+        console.log('http://localhost:8090/getLastUserCall/'+user?.id);
+        
+        axios.get('http://localhost:8090/getLastUserCall/'+user?.id)
+                .then(response => console.log(response));
+    }, []);
+    
     const handleFinish = async () => {
-        await fetch("http://localhost:8000/updateCall", {
+        await fetch("http://localhost:8090/updateCall", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: 34,
+                id: 42, // call id
                 status: 'finished',
-                date: new Date(),
-                calledUser: 2,
-                callerUser: 1
+                date: new Date(), // call date
+                callerUser: user?.id,
+                calledUser: 5 // call user called id
             })
-            })
-            .then((response) => {
-            if (response.ok) navigation.navigate('Home');
+        })
+        .then((response) => {
+            if (response.ok) navigation.navigate('Home')
             else console.log(response.status);
         })
-        navigation.navigate('Home')
     }
 
     const handleReject = async () => {
-        await fetch("http://localhost:8000/updateCall", {
+        await fetch("http://localhost:8090/updateCall", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: 34,
-                status: 'finished',
-                date: new Date(),
+                id: 49, // call id
+                status: 'created', // call status
+                date: new Date(),// call date
                 calledUser: null,
-                callerUser: 1
+                callerUser: user?.id
             })
-            })
+        })
     }
 
     return (

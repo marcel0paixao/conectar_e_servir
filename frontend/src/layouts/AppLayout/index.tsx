@@ -11,10 +11,11 @@ interface Props {
 
 export default function AppLayout({children, footer = true}: Props) {
     return (
-        <View style={styles.container}>
-            <Header />
-            {children}
-            {footer && <Footer />}
-        </View>
+        <>{children}</>
+        // <View style={styles.container}>
+        //     <Header />
+        //     {children}
+        //     {footer && <Footer />}
+        // </View>
     )
 }

@@ -9,9 +9,9 @@ export default function Header() {
 
     return (
         <View style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} >
+            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')} >
                 <Text style={styles.iconBack}>&#60;</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             
             <Image style={styles.headerLogo} source={require('../../../assets/images/person.webp')} />
             <Text style={styles.name}>Ana da Silva</Text>
