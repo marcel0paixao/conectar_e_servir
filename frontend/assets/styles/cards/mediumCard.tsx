@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     },
     cardDescription: {
         fontSize: 12,
-        maxWidth: 200
+        maxWidth: 400
     },
     cardText: {
         marginLeft: 10
     },
     time: {
         marginTop: 34, 
-        marginLeft: -2, 
+        position: 'absolute',
         color: 'rgb(50, 50, 50)', 
         fontSize: 11
     },
