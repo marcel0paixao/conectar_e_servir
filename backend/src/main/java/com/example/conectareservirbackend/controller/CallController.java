@@ -33,6 +33,16 @@ public class CallController {
         return callRepository.findAll();
     }
 
+    @GetMapping("/getUserCalls/{callerUserId}")
+    List<Calls> encontrarChamadasPeloUsuario(@PathVariable Long callerUserId) {
+        return callRepository.findAllByCallerUserIsNot(callerUserId);
+    }
+
+    @GetMapping("/getCall/{callId}")
+    List<Calls> encontrarChamada(@PathVariable Long callId) {
+        return callRepository.findAllByIdOrderByDate(callId);
+    }
+
     @GetMapping("/getLastUserCall/{callerUserId}/")
     Calls encontrarPrimeiraChamadaPeloUsuario(Users callerUserId) {
         return callRepository.findTopByCallerUserOrderByDate(callerUserId);

@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     Users findByEmail(String email);
 
+    Users findUsersById(Long userId);
+
     String queryUpdatePassword = "UPDATE Users SET password = :newPassword WHERE email = :userEmail";
     @Modifying
     @Transactional
