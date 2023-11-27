@@ -1,8 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ConfirmEmail from "../screens/ConfirmEmail";
-import DefinePassword from "../screens/DefinePassword";
 import Home from "../screens/Home";
 import Chat from "../screens/Chat";
 import CreateCall from "../screens/CreateCall";

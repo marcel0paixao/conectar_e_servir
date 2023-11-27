@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { View, Text, TextInput, Image, TouchableOpacity, Button } from "react-native"
 import styles from "../../../assets/styles/cards/mediumCard";
 import AppLayout from "../../layouts/AppLayout";
@@ -6,69 +6,67 @@ import { useNavigation } from "expo-router";
 import { StackTypes } from "../../routes/stack.routes";
 import { FlatList } from "react-native-gesture-handler";
 import AuthContext from "../../../contexts/auth";
-import globalStyles from "../../../assets/styles/globalStyles";
+import axios from "axios";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+
+type RootStackParamList = {
+  CallDashboard: { help: Help }; // Defina os tipos dos parâmetros
+  // ... outras telas
+};
+
+type CallDashboardNavigationProp = StackNavigationProp<RootStackParamList, 'CallDashboard'>;
+
+interface Props {
+  navigation: CallDashboardNavigationProp;
+}
+
+export interface Help {
+  id: number;
+  name: string;
+  description: string;
+  status: 'created' | 'finished';
+  callerUser: number;
+  calledUser: number | null;
+  date: string;
+}
+
 
 export default function Home() {
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation<StackTypes>();
-  const [helps, setHelps] = useState([
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    },
-    {
-      name: 'Ana da Silva',
-      description: 'Estou necessitando de ajuda para trocar o step do meu carro, estou no lugar X em baixo de um X',
-      distancia: '0.6km',
-      status: 'active',
-      photo: 'url foto'
-    }
-  ])
+  const [helps, setHelps] = useState<Help | []>([])
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    axios.get('http://localhost:8090/getCalls').then(response => setHelps(() => {
+      return response.data
+              .filter((resp: Help) => resp.status !== 'finished')
+              .filter((resp: Help) => resp.callerUser !== user?.id)
+              .filter((resp: Help) => resp.calledUser == null)
+              .map((resp: Help) => {
+                console.log(resp);
+                
+                return {
+                  id: resp.id,
+                  name: 'teste',
+                  description: resp.description,
+                  status: resp.status,
+                  callerUser: resp.callerUser,
+                  calledUser: null,
+                  date: resp.date
+                }
+              })
+    }));
+  }, [])
+  
+  const handleAcceptCall = (help: Help) => {
+    help.calledUser = user?.id ?? 0;
+    axios.put('http://localhost:8090/updateCall', help);
+    navigation.navigate('CallDashboard', {help: help});
+  }
+
+  const actualDate = new Date().getTime();
 
   return (
     <AppLayout>
@@ -92,7 +90,7 @@ export default function Home() {
               </View>
               <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={styles.cardDescription}>{item.item.description}</Text>
-                {/* <Text style={styles.time}>Há 1 min</Text> */}
+                <Text style={styles.time}>Há {Math.floor((actualDate - new Date(item.item.date).getTime()) / (1000 * 60))} mins</Text>
               </View>
             </View>
           </View>
@@ -100,7 +98,7 @@ export default function Home() {
             <TouchableOpacity style={{...styles.actionButton, ...styles.declineButton}} onPress={() => setHelps(helps.filter(help => help !== item.item))}>
               <Text style={{color: '#c33'}}>Recusar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.actionButton, ...styles.acceptButton}} onPress={() => navigation.navigate('Chat')}>
+            <TouchableOpacity style={{...styles.actionButton, ...styles.acceptButton}} onPress={() => handleAcceptCall(item.item)}>
               <Text style={{color: 'green'}}>Aceitar</Text>
             </TouchableOpacity>
           </View>

@@ -7,6 +7,7 @@ import org.aspectj.weaver.ast.Call;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,9 +28,14 @@ public class CallController {
         return callRepository.save(callToUpdate);
     }
 
+    @GetMapping("/getCalls")
+    List<Calls> encontrarChamadas() {
+        return callRepository.findAll();
+    }
+
     @GetMapping("/getLastUserCall/{callerUserId}")
     Calls encontrarPrimeiraChamadaPeloUsuario(Users callerUserId) {
-        return callRepository.findTopByCallerUserOrderByDate(callerUserId);
+        return (Calls) callRepository.findTopByCallerUserOrderByDate(callerUserId);
     }
 
 }

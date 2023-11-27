@@ -10,11 +10,17 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface CallRepository extends JpaRepository<Calls, Long> {
 
     Calls findTopByCallerUserOrderByDate(Users callerUserId);
+
+    List<Calls> findAll();
+
+
+    /*
 
     String selectTopUmStatusCall = "SELECT id FROM Calls WHERE caller_User = :users ORDER BY Calls.id DESC LIMIT 1";
 
@@ -27,4 +33,6 @@ public interface CallRepository extends JpaRepository<Calls, Long> {
     @Transactional
     @Query(queryUpdateCallStatus)
     Calls atualizarStatusChamada(@Param("newStatus") String newStatus, @Param("id") Long idCall);
+
+     */
 }
