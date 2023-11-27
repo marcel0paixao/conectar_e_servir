@@ -38,6 +38,10 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 16,
     },
+    map: {
+      width: '100%',
+      height: '100%',
+    },
   })
 
   export default styles;

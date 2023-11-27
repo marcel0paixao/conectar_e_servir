@@ -35,6 +35,7 @@ public class CallController {
 
     @GetMapping("/getLastUserCall/{callerUserId}")
     Calls encontrarPrimeiraChamadaPeloUsuario(Users callerUserId) {
-        return (Calls) callRepository.findTopByCallerUserOrderByDate(callerUserId);
+        return callRepository.findTopByCallerUserOrderByDate(callerUserId);
     }
+
 }

@@ -77,7 +77,7 @@ export default function CallDashboard({ route }: Props){
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={() => navigation.navigate('Home')}>
+                                    <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={() => navigation.navigate('Map')}>
                                         <Text style={{color: 'white'}}>Ver localização</Text>
                                     </TouchableOpacity>
                                 </View>
