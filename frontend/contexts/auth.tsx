@@ -45,7 +45,11 @@ export const AuthProvider: React.FC = ({children}: PropsWithChildren) => {
         setUser(user);
         await AsyncStorage.setItem('auth:user', JSON.stringify(user));
       }
-    }).catch(() => setLoginError('A requisição falhou, verifique sua conexão.'));
+    }).catch(e => {
+      console.log(e);
+      
+      setLoginError('A requisição falhou, verifique sua conexão.')
+    });
   }
 
   const logout = () => AsyncStorage.clear().then(() => setUser(null))

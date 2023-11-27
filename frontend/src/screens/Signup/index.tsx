@@ -87,7 +87,7 @@ export default function SingUp(){
             validateOnMount={false}
             onSubmit={async (values: MyFormValues) => {
                 try {
-                  await fetch("http://localhost:8090/user", {
+                  await fetch("http://192.168.0.2:8090:8090/user", {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

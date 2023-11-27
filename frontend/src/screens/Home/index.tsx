@@ -39,7 +39,7 @@ export default function Home() {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get('http://localhost:8090/getCalls').then(response => setHelps(() => {
+    axios.get('http://192.168.0.2:8090/getCalls').then(response => setHelps(() => {
       return response.data
               .filter((resp: Help) => resp.status !== 'finished')
               .filter((resp: Help) => resp.callerUser !== user?.id)
@@ -54,7 +54,7 @@ export default function Home() {
                   calledUser: null,
                   date: resp.date
                 };
-                axios.get(`http://localhost:8090/getUser/${resp.callerUser}`).then(response => {
+                axios.get(`http://192.168.0.2:8090/getUser/${resp.callerUser}`).then(response => {
                   help.name = response.data.username
                 })
 
@@ -72,7 +72,7 @@ export default function Home() {
   
   const handleAcceptCall = (help: Help) => {
     help.calledUser = user?.id ?? 0;
-    axios.put('http://localhost:8090/updateCall', help);
+    axios.put('http://192.168.0.2:8090/updateCall', help);
     navigation.navigate('CallDashboard', {help: help});
   }
 

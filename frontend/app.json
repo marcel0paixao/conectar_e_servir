@@ -17,13 +17,29 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.name.conectareservir",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ],
+        "NSLocationWhenInUseUsageDescription": "text",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "text",
+        "NSLocationAlwaysUsageDescription": "text"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#f2f2f2"
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE"
+      ],
+      "package": "org.name.conectareservir"
     },
     "web": {
       "bundler": "metro",
@@ -35,12 +51,21 @@
       [
         "expo-location",
         {
+          "locationWhenInUsePermission": "Permita que Conectar E Servir acesse a sua localização.",
           "locationAlwaysAndWhenInUsePermission": "Permita que Conectar E Servir acesse a sua localização."
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "49105055-d3fb-49b5-a5e2-5d6df94c29d4"
+      }
     }
   }
 }

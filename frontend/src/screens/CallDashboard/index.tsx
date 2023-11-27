@@ -34,7 +34,7 @@ export default function CallDashboard({ route }: Props){
             c.status = 'finished';
             return c;
         })
-        axios.put("http://localhost:8090/updateCall", call)
+        axios.put("http://192.168.0.2:8090/updateCall", call)
         .then((response) => {
             if (response) navigation.navigate('Home');
         })
@@ -45,7 +45,7 @@ export default function CallDashboard({ route }: Props){
             c.calledUser = null;
             return c;
         })
-        axios.put("http://localhost:8090/updateCall", call)
+        axios.put("http://192.168.0.2:8090/updateCall", call)
         .then(() => {
             if(call.calledUser !== user?.id) navigation.navigate('Home');
         }).catch(console.log)

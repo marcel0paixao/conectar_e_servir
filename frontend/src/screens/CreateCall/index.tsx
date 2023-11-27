@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react"
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from "react-native"
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Keyboard } from "react-native"
 import styles from "../../../assets/styles/form/styles";
 import globalStyles from "../../../assets/styles/globalStyles";
 import AppLayout from "../../layouts/AppLayout";
@@ -46,7 +46,7 @@ export default function CreateCall(){
                   status: 'created',
                   date: new Date()
                 }
-                axios.post("http://localhost:8090/call", help) .then(response => {
+                axios.post("http://192.168.0.2:8090/call", help) .then(response => {
                   if (response) navigation.navigate('CallDashboard', {help: help});
                 }).catch(e => {
                   setSubmitErrors('Não foi possível submeter o formulário, verifique sua conexão.');
@@ -72,6 +72,12 @@ export default function CreateCall(){
                     onBlur={handleBlur('description')}
                     multiline={true}
                     numberOfLines={6}
+                    onKeyPress={({ nativeEvent }) => {
+                      if (nativeEvent.key === 'Enter') {
+                        Keyboard.dismiss(); // Esconde o teclado
+                      }
+                    }}
+                    onSubmitEditing={() => Keyboard.dismiss()}
                     onChangeText={handleChange('description')} />
                 </View>
                 {errors.description && <Text style={{ marginLeft: 25, marginTop: 2, color: 'red', marginBottom: 10 }}>{errors.description}</Text>}

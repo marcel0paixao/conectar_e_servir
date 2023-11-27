@@ -4,6 +4,7 @@ import styles from "../../../assets/styles/globalStyles";
 import * as Location from 'expo-location';
 import { Image } from "react-native";
 import MapViewDirections from 'react-native-maps-directions';
+import GOOGLE_MAPS_API_KEY from "../../../GOOGLE_MAPS_API_KEY";
 
 export default function Map(){
     const [coords, setCoords] = useState<Array<{
@@ -64,7 +65,7 @@ export default function Map(){
                 precision="high"
                 timePrecision="now"
                 mode="DRIVING"
-                apikey={'AIzaSyD8zt_HLlOBMJfsvnu3TLxaY7fExnZjueA'}
+                apikey={GOOGLE_MAPS_API_KEY}
                 strokeWidth={5}
                 optimizeWaypoints
             />
