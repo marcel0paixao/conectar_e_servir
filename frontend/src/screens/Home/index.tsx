@@ -84,15 +84,15 @@ export default function Home() {
       <FlatList style={styles.cardListContainer} data={helps} renderItem={(item) => 
         <View style={styles.cardContainer}>
           <View style={styles.cardInfo}>
-            <Image style={styles.cardImage} source={require('../../../assets/images/person.webp')} />
+            {/* <Image style={styles.cardImage} source={require('../../../assets/images/person.webp')} /> */}
             <View style={styles.cardText}>
               <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={styles.cardTitle}>{item.item.name}</Text>
-                <Text style={styles.cardDistance}>{item.item.distancia}</Text>
+                {/* <Text style={styles.cardDistance}>{item.item.distancia}</Text> */}
               </View>
               <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={styles.cardDescription}>{item.item.description}</Text>
-                <Text style={styles.time}>Há 1 min</Text>
+                {/* <Text style={styles.time}>Há 1 min</Text> */}
               </View>
             </View>
           </View>

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface CallRepository extends JpaRepository<Calls, Long> {
 
-    Calls findTopByCallerUserOrderByDate(Users callerUserId);ee
+    Calls findTopByCallerUserOrderByDate(Users callerUserId);
 
     String selectTopUmStatusCall = "SELECT id FROM Calls WHERE caller_User = :users ORDER BY Calls.id DESC LIMIT 1";
 

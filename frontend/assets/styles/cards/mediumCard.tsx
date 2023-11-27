@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
     cardDescription: {
         fontSize: 12,
-        maxWidth: 200
+        maxWidth: 400
     },
     cardText: {
         marginLeft: 10
