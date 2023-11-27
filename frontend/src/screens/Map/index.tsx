@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, enableLatestRenderer } from 'react-native-maps';
 import styles from "../../../assets/styles/globalStyles";
 import * as Location from 'expo-location';
 import { Image } from "react-native";
@@ -15,6 +15,8 @@ export default function Map(){
     useEffect(() => {
         getLocation();
     }, []);
+
+    enableLatestRenderer();
 
     const getLocation = async (): Promise<void> => {
         let { status } = await Location.requestForegroundPermissionsAsync();
