@@ -10,11 +10,15 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface CallRepository extends JpaRepository<Calls, Long> {
 
     Calls findTopByCallerUserOrderByDate(Users callerUserId);
+
+    List<Calls> findAll();
+
 
     /*
 

@@ -23,6 +23,7 @@ public class Calls {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    private Boolean active;
 
     public Long getId() {
         return id;
@@ -70,5 +71,13 @@ public class Calls {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
