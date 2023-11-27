@@ -26,6 +26,9 @@ public class UserController {
         return userRepository.findByEmail(email);
     }
 
+    @GetMapping("/getUser/{id}")
+    Users getUser(@PathVariable Long id) { return userRepository.findUsersById(id); }
+
     @GetMapping("/login/{email}/{password}")
     Users getLoginByEmail(@PathVariable String email, @PathVariable String password) {
         return userRepository.findByEmailAndAndPassword(email, password);

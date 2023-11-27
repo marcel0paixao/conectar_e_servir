@@ -9,10 +9,14 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import AuthContext from "../../../contexts/auth";
+import { Help } from "../Home";
+import axios from "axios";
 
 export default function CreateCall(){
     const [submitErrors, setSubmitErrors] = useState('');
     const navigation = useNavigation<StackTypes>();
+
+    const [help, setHelp] = useState<Help>();
 
     interface MyFormValues {
         description: string;
@@ -27,7 +31,6 @@ export default function CreateCall(){
 
     const initialValues: MyFormValues = { description: '' }
     const { user } = useContext(AuthContext);
-
     return (
         <AppLayout footer>
           <Formik
@@ -36,31 +39,18 @@ export default function CreateCall(){
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount={false}
-            onSubmit={async (values: MyFormValues) => {
-                try {
-                  await fetch("http://localhost:8090/call", {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        description: values.description,
-                        callerUser: user?.id,
-                        status: 'created',
-                        date: new Date()
-                    })
-                  })
-                  .then((response) => {
-                    if (response.ok) navigation.navigate('CallDashboard');
-                    else setSubmitErrors('Dados inválidos!');
-                  }).catch(e => {
-                    console.log('error: ', e)
-                  })
+            onSubmit={(values: MyFormValues) => {
+                const help = {
+                  description: values.description,
+                  callerUser: user?.id,
+                  status: 'created',
+                  date: new Date()
                 }
-                catch (error) {
-                  console.log(error);
+                axios.post("http://localhost:8090/call", help) .then(response => {
+                  if (response) navigation.navigate('CallDashboard', {help: help});
+                }).catch(e => {
                   setSubmitErrors('Não foi possível submeter o formulário, verifique sua conexão.');
-                }
+                })
               }}
             >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (

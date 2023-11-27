@@ -35,7 +35,7 @@ export interface Help {
 export default function Home() {
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation<StackTypes>();
-  const [helps, setHelps] = useState<Help | []>([])
+  const [helps, setHelps] = useState<Array<Help>>();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -45,20 +45,30 @@ export default function Home() {
               .filter((resp: Help) => resp.callerUser !== user?.id)
               .filter((resp: Help) => resp.calledUser == null)
               .map((resp: Help) => {
-                console.log(resp);
-                
-                return {
+                const help = {
                   id: resp.id,
-                  name: 'teste',
+                  name: null,
                   description: resp.description,
                   status: resp.status,
                   callerUser: resp.callerUser,
                   calledUser: null,
                   date: resp.date
-                }
+                };
+                axios.get(`http://localhost:8090/getUser/${resp.callerUser}`).then(response => {
+                  help.name = response.data.username
+                })
+
+                return help;
               })
     }));
   }, [])
+
+  useEffect(() => {
+    setHelps(helps => {
+      return helps?.reverse();
+    })
+  }, [helps])
+  
   
   const handleAcceptCall = (help: Help) => {
     help.calledUser = user?.id ?? 0;

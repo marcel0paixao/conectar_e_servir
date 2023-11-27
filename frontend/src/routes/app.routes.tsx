@@ -12,10 +12,27 @@ const AppRoutes: React.FC = () => (
     <AppStack.Navigator>
         {/* <AppStack.Screen name="ConfirmEmail" component={ConfirmEmail} /> */}
         {/* <AppStack.Screen name="DefinePassword" component={DefinePassword} /> */}
-        <AppStack.Screen name="Home" component={Home} />
-        <AppStack.Screen name="Chat" component={Chat} initialParams={{ id: 42 }} />
-        <AppStack.Screen name="CreateCall" component={CreateCall} />
-        <AppStack.Screen name="CallDashboard" component={CallDashboard} />
+        <AppStack.Screen name="Home" component={Home} options={{
+            header: () => null
+        }}/>
+        <AppStack.Screen name="Chat" component={Chat}  options={{
+            headerBackTitleVisible: false,
+        }}/>
+        <AppStack.Screen name="CreateCall" component={CreateCall} options={{
+            headerTransparent: true,
+            headerTitle: () => null,
+            headerBackTitleVisible: false,
+            headerStyle: {
+                height: 50
+            }
+        }} />
+        <AppStack.Screen name="CallDashboard" component={CallDashboard} options={{
+            headerLeft: () => null,
+            headerBackTitle: "Dashboard de ajuda",
+            headerTransparent: true,
+            headerTitle: () => null,
+            gestureEnabled: false
+        }} />
     </AppStack.Navigator>
 );
 

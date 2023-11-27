@@ -28,24 +28,15 @@ export default function CallDashboard({ route }: Props){
     const { user } = useContext(AuthContext);
 
     const [call, setCall] = useState<Help>(help);
-
-    useEffect(() => {
-      console.log('help loaded: ', help);
-    }, [])
-    
     
     const handleFinish = async () => {
         setCall((c: Help) => {
             c.status = 'finished';
             return c;
         })
-        axios.put("http://localhost:8090/updateCall", help)
+        axios.put("http://localhost:8090/updateCall", call)
         .then((response) => {
-            if (response.ok) {
-                console.log('finalizando help: ', help);
-                navigation.navigate('Home');
-            }
-            else console.log(response.status);
+            if (response) navigation.navigate('Home');
         })
     }
 
@@ -54,10 +45,9 @@ export default function CallDashboard({ route }: Props){
             c.calledUser = null;
             return c;
         })
-        axios.put("http://localhost:8090/updateCall", help)
+        axios.put("http://localhost:8090/updateCall", call)
         .then(() => {
-            console.log('cancelado/rejeitando help: ', help);
-            if(help.calledUser !== user?.id) navigation.navigate('Home');
+            if(call.calledUser !== user?.id) navigation.navigate('Home');
         }).catch(console.log)
     }
 
@@ -68,37 +58,42 @@ export default function CallDashboard({ route }: Props){
             </View>
             <View>
                 <View>
-                    <Text style={styles.inputLabel}>{help.callerUser == user?.id ? 'Ajudante disposto' : 'Pessoa a ser ajudada'}</Text>
+                    <Text style={styles.inputLabel}>{call.callerUser == user?.id ? 'Ajudante disposto' : 'Pessoa a ser ajudada'}</Text>
                 </View>
                 <View style={{...cardStyles.cardContainer, marginHorizontal: 20, width: '90%', height: 160}}>
-                    <View style={cardStyles.cardInfo}>
-                        <View style={cardStyles.cardText}>
-                            <View style={{display: 'flex', flexDirection: 'row'}}>
-                                <Text style={{...cardStyles.cardTitle, marginTop: 15}}>Nome: {help.name}</Text>
+                    {call.calledUser ?
+                        <>
+                            <View style={cardStyles.cardInfo}>
+                                <View style={cardStyles.cardText}>
+                                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                                        <Text style={{...cardStyles.cardTitle, marginTop: 15}}>Nome: {call.name}</Text>
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-                    </View>
-                    <View style={{ display: 'flex', flexDirection: 'row'}}>
-                        <View>
-                            <TouchableOpacity style={{...styles.button, width: '150', paddingHorizontal: 15, marginLeft: 15}} onPress={() => navigation.navigate('Chat')}>
-                                <Text style={{color: 'white'}}>Conversar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={() => navigation.navigate('Home')}>
-                                <Text style={{color: 'white'}}>Ver localização</Text>
-                            </TouchableOpacity>
-                        </View>
-                        {help.callerUser == user?.id && <View>
-                            <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={handleCancel}>
-                                <Text style={{color: 'red'}}>Recusar</Text>
-                            </TouchableOpacity>
-                        </View>}
-                    </View>
+                            <View style={{ display: 'flex', flexDirection: 'row'}}>
+                                <View>
+                                    <TouchableOpacity style={{...styles.button, width: '150', paddingHorizontal: 15, marginLeft: 15}} onPress={() => navigation.navigate('Chat')}>
+                                        <Text style={{color: 'white'}}>Conversar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={() => navigation.navigate('Home')}>
+                                        <Text style={{color: 'white'}}>Ver localização</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                {call.callerUser == user?.id && <View>
+                                    <TouchableOpacity style={{...styles.button, width: '250', paddingHorizontal: 15, marginLeft: 10}} onPress={handleCancel}>
+                                        <Text style={{color: 'red'}}>Recusar</Text>
+                                    </TouchableOpacity>
+                                </View>}
+                            </View>
+                        </> :
+                        <Text style={{fontSize: 30, textAlign: 'center', marginTop: 10, padding: 10}}>Aguarde enquanto procuramos ajudantes para você...</Text>
+                    }
                 </View>
             </View>
             <View>
-                {help.callerUser == user?.id ? 
+                {call.callerUser == user?.id ? 
                     <TouchableOpacity style={{ ...styles.button, marginVertical: 20 }} onPress={handleFinish}>
                         <Text style={globalStyles.buttonText}>Finalizar solicitação</Text>
                     </TouchableOpacity>
