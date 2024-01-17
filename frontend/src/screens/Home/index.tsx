@@ -29,6 +29,7 @@ export interface Help {
   callerUser: number;
   calledUser: number | null;
   date: string;
+  address: string;
 }
 
 
@@ -52,7 +53,8 @@ export default function Home() {
                   status: resp.status,
                   callerUser: resp.callerUser,
                   calledUser: null,
-                  date: resp.date
+                  date: resp.date,
+                  address: resp.address
                 };
                 axios.get(`http://192.168.0.2:8090/getUser/${resp.callerUser}`).then(response => {
                   help.name = response.data.username

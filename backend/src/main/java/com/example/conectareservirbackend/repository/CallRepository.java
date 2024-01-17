@@ -19,6 +19,8 @@ public interface CallRepository extends JpaRepository<Calls, Long> {
 
     List<Calls> findAll();
 
+    Calls findCallsById(Long id);
+
     List<Calls> findAllByCallerUserIsNot(Long callerUserId);
 
     List<Calls> findAllByIdOrderByDate(Long callId);

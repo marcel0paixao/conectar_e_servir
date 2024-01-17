@@ -1,8 +1,12 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react"
+import React, { PropsWithChildren, useContext, useEffect, useRef, useState } from "react"
 import { View, Text } from "react-native"
 import styles from "../../../assets/styles/chat/styles";
 import { FlatList } from "react-native-gesture-handler";
 import ChatLayout from "../../layouts/ChatLayout";
+import axios from "axios";
+import AuthContext from "../../../contexts/auth";
+import { Help } from "../Home";
+import { RouteProp } from "@react-navigation/native";
 
 export type Message = {
     message: string,
@@ -11,7 +15,19 @@ export type Message = {
     left: boolean
 }
 
-export default function Chat({}: PropsWithChildren) {
+type RootStackParamList = {
+  CallDashboard: { help: Help }; // Defina os tipos dos parâmetros
+};
+
+type CallDashboardRouteProp = RouteProp<RootStackParamList, 'CallDashboard'>;
+
+interface Props {
+  route: CallDashboardRouteProp;
+}
+
+export default function Chat({ route }: Props) {
+  const { user } = useContext(AuthContext);
+  const { help } = route.params;
   const [messageInput, setMessageInput] = useState<string>('');  
   const [messages, setMessages] = useState<Array<Message>>([
     {
@@ -97,9 +113,7 @@ export default function Chat({}: PropsWithChildren) {
   const flatListRef = useRef<FlatList>(null);
 
   useEffect(() => {
-    // if (flatListRef.current) {
-    //     flatListRef.current.scrollToIndex({ index: messages.length - 1 });
-    //   }
+    axios.get(`http://127.0.0.1:8090/findChat/${user?.id}`)
   }, []);
 
   return (

@@ -14,7 +14,7 @@ interface Props {
 export default function ChatLayout({children, setMessageInput, handleSubmitMessage, messageInput}: Props) {
     return (
         <View style={styles.container}>
-            <Header />
+            {/* <Header /> */}
             {children}
             <Form setMessageInput={setMessageInput} handleSubmitMessage={handleSubmitMessage} messageInput={messageInput} />
         </View>

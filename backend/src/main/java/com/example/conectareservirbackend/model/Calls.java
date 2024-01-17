@@ -21,12 +21,10 @@ public class Calls {
     private String Status;
     private String description;
     private String address;
-    @Column(nullable = false)
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     private Boolean active;
-    private String adress;
-
     public Long getId() {
         return id;
     }
@@ -81,14 +79,6 @@ public class Calls {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
     }
 
     public String getAddress() {

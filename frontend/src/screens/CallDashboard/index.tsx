@@ -37,6 +37,7 @@ export default function CallDashboard({ route }: Props){
         axios.put("http://192.168.0.2:8090/updateCall", call)
         .then((response) => {
             if (response) navigation.navigate('Home');
+            setCall(call);
         })
     }
 
@@ -48,9 +49,18 @@ export default function CallDashboard({ route }: Props){
         axios.put("http://192.168.0.2:8090/updateCall", call)
         .then(() => {
             if(call.calledUser !== user?.id) navigation.navigate('Home');
+            setCall(call);
         }).catch(console.log)
     }
 
+    useEffect(() => {
+        // setInterval(() => {
+        //     axios.get(`http://192.168.0.2:8090/getCall/${help.id}`).then(response => setCall(response.data))
+        //     console.log(`http://192.168.0.2:8090/getCall/${help.id}`);
+            
+        // }, 2000)
+    }, []);
+    
     return (
         <AppLayout footer>
             <View>
@@ -72,7 +82,7 @@ export default function CallDashboard({ route }: Props){
                             </View>
                             <View style={{ display: 'flex', flexDirection: 'row'}}>
                                 <View>
-                                    <TouchableOpacity style={{...styles.button, width: '150', paddingHorizontal: 15, marginLeft: 15}} onPress={() => navigation.navigate('Chat')}>
+                                    <TouchableOpacity style={{...styles.button, width: '150', paddingHorizontal: 15, marginLeft: 15}} onPress={() => navigation.navigate('Chat', {help: help})}>
                                         <Text style={{color: 'white'}}>Conversar</Text>
                                     </TouchableOpacity>
                                 </View>

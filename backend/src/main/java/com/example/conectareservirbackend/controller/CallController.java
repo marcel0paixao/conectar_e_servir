@@ -38,4 +38,6 @@ public class CallController {
         return callRepository.findTopByCallerUserOrderByDate(callerUserId);
     }
 
+    @GetMapping("/getCall/{id}")
+    Calls getCallsById(@PathVariable Long id) { return callRepository.findCallsById(id); }
 }

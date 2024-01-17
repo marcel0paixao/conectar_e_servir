@@ -13,8 +13,8 @@ export default function Header() {
                 <Text style={styles.iconBack}>&#60;</Text>
             </TouchableOpacity> */}
             
-            <Image style={styles.headerLogo} source={require('../../../assets/images/person.webp')} />
-            <Text style={styles.name}>Ana da Silva</Text>
+            {/* <Image style={styles.headerLogo} source={require('../../../assets/images/person.webp')} /> */}
+            <Text style={styles.name}>Con</Text>
         </View>
     );
 }

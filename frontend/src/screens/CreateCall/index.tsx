@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react"
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Keyboard } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Modal, Keyboard } from "react-native"
 import styles from "../../../assets/styles/form/styles";
 import globalStyles from "../../../assets/styles/globalStyles";
 import AppLayout from "../../layouts/AppLayout";
@@ -11,10 +11,15 @@ import * as yup from 'yup';
 import AuthContext from "../../../contexts/auth";
 import { Help } from "../Home";
 import axios from "axios";
+import * as Location from 'expo-location'
 
 export default function CreateCall(){
     const [submitErrors, setSubmitErrors] = useState('');
     const navigation = useNavigation<StackTypes>();
+    const [coords, setCoords] = useState<{
+      latitude: number,
+      longitude: number
+    }>();
 
     const [help, setHelp] = useState<Help>();
 
@@ -29,6 +34,24 @@ export default function CreateCall(){
             .max(1000, 'A descrição deve ter no máximo 1000 caracteres'),
     });
 
+    const getLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.log('Permissão de localização não concedida');
+          return;
+        }
+      
+        let location = await Location.getCurrentPositionAsync({});
+        setCoords({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude
+        });
+    };
+    useEffect(() => {
+      getLocation();
+    }, [])
+    
+  
     const initialValues: MyFormValues = { description: '' }
     const { user } = useContext(AuthContext);
     return (
@@ -40,15 +63,19 @@ export default function CreateCall(){
             validateOnBlur={false}
             validateOnMount={false}
             onSubmit={(values: MyFormValues) => {
+              console.log('local ============', coords);
                 const help = {
                   description: values.description,
                   callerUser: user?.id,
                   status: 'created',
-                  date: new Date()
+                  date: new Date(),
+                  address: JSON.stringify(coords)
                 }
                 axios.post("http://192.168.0.2:8090/call", help) .then(response => {
                   if (response) navigation.navigate('CallDashboard', {help: help});
                 }).catch(e => {
+                  console.log(e);
+                  
                   setSubmitErrors('Não foi possível submeter o formulário, verifique sua conexão.');
                 })
               }}
